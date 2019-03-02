@@ -15,7 +15,7 @@ body {
 }
 
 .bar {
-  fill: orange;
+  fill: BLUE;
 }
 
 .bar:hover {
@@ -58,11 +58,12 @@ body {
 <body>
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="d3-tip.js"></script>
+<div id="dropdown">
 <script>
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 460 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 // set the ranges
 var x = d3.scaleBand()
@@ -87,11 +88,11 @@ var svg = d3.select("body").append("svg")
           "translate(" + margin.left + "," + margin.top + ")");
 svg.call(tip);
 // get the data
-d3.csv("test.csv", function(error, data) {
-  if (error) throw error;
 
-  // format the data
-  data.forEach(function(d) {
+var fruitMenu = d3.select("#dropdown")
+
+d3.csv("test.csv", function(error, data) {
+		data.forEach(function(d) {
     d.normalized_distance = +d.normalized_distance;
   });
 
@@ -105,32 +106,94 @@ d3.csv("test.csv", function(error, data) {
 		})
 	  .entries(data)
 
+   var nest_2 = d3.nest()
+	  .key(function(d){
+	    return d.type;
+	  })
+	  .sortKeys(d3.ascending)
+	  .rollup(function(leaves){
+	 		return d3.sum(leaves, function(d) {return (d.normalized_distance)});
+		})
+	  .entries(data)
+
+  fruitMenu
+		.append("select")
+		.selectAll("option")
+        .data(nest_2)
+        .enter()
+        .append("option")
+        .attr("value", function(d){
+            return d.key;
+        })
+        .text(function(d){
+            return d.key;
+        })
 
   // Scale the range of the data in the domains
   x.domain(nest.map(function(d) { return d.key; }));
   y.domain([0, d3.max(nest, function(d) { return d.value; })]);
-
   // append the rectangles for the bar chart
-  svg.selectAll(".bar")
-      .data(nest)
+  // add the x Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+  // add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+   binding_data(nest)
+})
+
+function draw(type){
+d3.csv("test.csv", function(error, data) {
+  if (error) throw error;
+	data = data.filter(function(d){return d.type == type;})
+  // format the data
+  data.forEach(function(d) {
+    d.normalized_distance = +d.normalized_distance;
+  });
+
+	var nest = d3.nest()
+	  .key(function(d){
+	    return d.month;
+	  })
+	  .sortKeys(d3.ascending)
+	  .rollup(function(leaves){
+	 		return d3.sum(leaves, function(d) {return (d.normalized_distance)});
+		})
+
+	  .entries(data)
+	 binding_data(nest)
+});
+}
+
+function binding_data(nest)
+  {
+     svg.selectAll(".bar").remove().exit().data(nest)
     .enter().append("rect")
       .attr("class", "bar")
+     	.attr("id", function(d) {return 'month_' + d.key})
       .attr("x", function(d) { return x(d.key); })
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
 			.on('mouseover', tip.show)
       .on('mouseout', tip.hide)
-  // add the x Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+  }
 
-  // add the y Axis
-  svg.append("g")
-      .call(d3.axisLeft(y));
 
-});
+   	fruitMenu.on('change', function(){
+
+ 		// Find which fruit was selected from the dropdown
+ 		var selectedFruit = d3.select(this)
+            .select("select")
+            .property("value")
+
+        // Run update function with the selected fruit
+				draw(selectedFruit)
+
+    });
+
+
 
 </script>
 </body>

@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<style>
+  button {
+  	border: none;
+  	color: white;
+  	padding: 15px 32px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 27px;
+    margin : 5px;
+	}
+  #buttons {
+    margin : 10% 25%;
+    width : 50%;
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: center
+  }
+</style
 <html>
    <body>
-      <button onclick='window.location.href="www.google.com";'>
-        Go to google
-    	</button>
+  		<div id="buttons">
+      	<button
+  				onclick="window.location.href='bar_chart.html';"
+  				style="background-color: #4CAF50;">
+        		Bar chart
+    		</button>
+      	<button
+  				onclick="window.location.href='bar_chart_stacked.html';"
+  				style="background-color: #008CBA;">
+        		Bar chart stacked
+    		</button>
+      	<button
+  				onclick="window.location.href='pie_chart.html';"
+  				style="background-color: #f44336;">
+        		Pie chart
+    		</button>
+      	<button
+  				onclick="window.location.href='map.html';"
+  				style="background-color: #555555;">
+        		Map
+    		</button>
+      	<button
+  				onclick="window.location.href='nodes.html';"
+  				style="background-color: #ffa500;">
+        		Nodes
+    		</button>
+  		</div>
    </body>
 </html>

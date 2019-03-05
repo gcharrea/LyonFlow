@@ -39,7 +39,7 @@
   .rangeRound([height, 0]);
 
   var z = d3.scaleOrdinal()
-  .range(["#5badff", "#00e4f4", "#0fff77", "#15ff00","#bbff5b", "#f4a700", "#ff1b0f", "#ff005d","#9a5bff", "#ded416"]);
+  .range(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99"]);
 
   d3.csv('test.csv', (error, data) => {
 
@@ -74,8 +74,9 @@
 
     let typeList = dataBymonth[0].values.map(d => { return d.type; });
     let monthList = dataBymonth.map(d => { return d.month; });
+		var a = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
-    x0.domain(monthList);
+    x0.domain(a);
     x1.domain(typeList).rangeRound([0, x0.bandwidth()]);
     y.domain([0, d3.max(dataBymonth, d => {return d3.max(d.values, el => { return el.sum_normalized_distance; }); })]).nice();
     z.domain(typeList);
@@ -190,3 +191,4 @@
 
   </script>
 </body>
+++++++

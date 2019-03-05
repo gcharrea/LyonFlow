@@ -20,6 +20,7 @@
 </head>
 <body>
     <svg width="500" height="400"></svg>
+  <div id="dropdown">
     <script>
 
         var svg = d3.select("svg"),
@@ -30,7 +31,7 @@
         var g = svg.append("g")
                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c','#3ee519','#193be5']);
+        var color = d3.scaleOrdinal(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477"]);
 
         var pie = d3.pie().value(function(d) {
                 return d.value;
@@ -43,7 +44,8 @@
         var label = d3.arc()
                       .outerRadius(radius)
                       .innerRadius(radius - 80);
-
+				
+				var fruitMenu = d3.select("#dropdown")
         d3.csv("test.csv", function(error, data) {
             if (error) {
                 throw error;
@@ -58,7 +60,27 @@
                   return d3.sum(leaves, function(d) {return (d.normalized_distance)});
                 })
                 .entries(data)
-
+					var nest_2 = d3.nest()
+                .key(function(d){
+                  return d.type;
+                })
+                .sortKeys(d3.ascending)
+                .rollup(function(leaves){
+                  return d3.sum(leaves, function(d) {return (d.normalized_distance)});
+                })
+                .entries(data)
+              fruitMenu
+                .append("select")
+                .selectAll("option")
+                    .data(nest_2)
+                    .enter()
+                    .append("option")
+                    .attr("value", function(d){
+                        return d.key;
+                    })
+                    .text(function(d){
+                        return d.key;
+                    })
             var arc = g.selectAll(".arc")
                        .data(pie(nest))
                        .enter().append("g")
@@ -78,7 +100,58 @@
 
             });
 
+function draw(type){
+    d3.csv("test.csv", function(error, data) {
+      if (error) throw error;
+      data = data.filter(function(d){return d.type == type;})
+      // format the data
+      data.forEach(function(d) {
+        d.normalized_distance = +d.normalized_distance;
+      });
+      var nest = d3.nest()
+        .key(function(d){
+          return d.day_of_week;
+        })
+        .sortKeys(d3.ascending)
+        .rollup(function(leaves){
+          return d3.sum(leaves, function(d) {return (d.normalized_distance)});
+        })
+        .entries(data)
+       binding_data(nest)
+});
+}
+function binding_data(nest)
+      {
+        
+        g.selectAll(".arc").remove().exit()
+        
+         var arc = g.selectAll(".arc")
+                       .data(pie(nest))
+                       .enter().append("g")
+                       .attr("class", "arc");
 
+            arc.append("path")
+               .attr("d", path)
+               .attr("fill", function(d) { return color(d.data.key); });
+
+            console.log(arc)
+
+            arc.append("text")
+               .attr("transform", function(d) {
+                        return "translate(" + label.centroid(d) + ")";
+                })
+               .text(function(d) { return d.data.key; });
+
+         
+      }
+	fruitMenu.on('change', function(){
+ 		// Find which fruit was selected from the dropdown
+ 		var selectedFruit = d3.select(this)
+            .select("select")
+            .property("value")
+        // Run update function with the selected fruit
+				draw(selectedFruit)
+    });
     </script>
 </body>
 </html>

@@ -16,14 +16,5 @@ Le projet consiste en une page d'accueil où vous choisissez la visualisation qu
 * Nodes
 
 
-Voici une rapide visualisation du jeu qui est disponible [ici](https://renaud-d-harreville.github.io/DataViz_M2/) :
+Le projet est disponible [ici](https://gcharrea.github.io/LyonFlow/index) :
 
-![](https://github.com/Renaud-D-Harreville/DataViz_M2/blob/master/Reports/groupe1.gif?raw=true)
-
-# Structure du projet :
-
-- Reports : dossier contenant nos rapports et le gif
-
-- docs : fichiers js, python et nos données
-
-- workbook : le détail de notre avancement et nos objectifs chaque semaine

@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
 .bar { fill: steelblue; }
 body {
   font: 10px sans-serif;
 }
-
 .axis path,
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
 .bar {
   fill: BLUE;
 }
-
 .bar:hover {
   fill: orangered ;
 }
-
 .x.axis path {
   display: none;
 }
-
 .d3-tip {
   line-height: 1;
   font-weight: bold;
@@ -34,7 +28,6 @@ body {
   color: #fff;
   border-radius: 2px;
 }
-
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
@@ -47,7 +40,6 @@ body {
   position: absolute;
   text-align: center;
 }
-
 /* Style northward tooltips differently */
 .d3-tip.n:after {
   margin: -1px 0 0 0;
@@ -64,7 +56,6 @@ body {
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 460 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
-
 // set the ranges
 var x = d3.scaleBand()
           .range([0, width])
@@ -88,14 +79,11 @@ var svg = d3.select("body").append("svg")
           "translate(" + margin.left + "," + margin.top + ")");
 svg.call(tip);
 // get the data
-
 var fruitMenu = d3.select("#dropdown")
-
 d3.csv("test.csv", function(error, data) {
 		data.forEach(function(d) {
     d.normalized_distance = +d.normalized_distance;
   });
-
   var nest = d3.nest()
 	  .key(function(d){
 	    return d.month;
@@ -105,7 +93,6 @@ d3.csv("test.csv", function(error, data) {
 	 		return d3.sum(leaves, function(d) {return (d.normalized_distance)});
 		})
 	  .entries(data)
-
    var nest_2 = d3.nest()
 	  .key(function(d){
 	    return d.type;
@@ -115,7 +102,6 @@ d3.csv("test.csv", function(error, data) {
 	 		return d3.sum(leaves, function(d) {return (d.normalized_distance)});
 		})
 	  .entries(data)
-
   fruitMenu
 		.append("select")
 		.selectAll("option")
@@ -128,9 +114,10 @@ d3.csv("test.csv", function(error, data) {
         .text(function(d){
             return d.key;
         })
-
   // Scale the range of the data in the domains
-  x.domain(nest.map(function(d) { return d.key; }));
+  	  var a = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+	  x.domain(a)
+ // x.domain(nest.map(function(d) { return d.key; }));
   y.domain([0, d3.max(nest, function(d) { return d.value; })]);
   // append the rectangles for the bar chart
   // add the x Axis
@@ -142,7 +129,6 @@ d3.csv("test.csv", function(error, data) {
       .call(d3.axisLeft(y));
    binding_data(nest)
 })
-
 function draw(type){
 d3.csv("test.csv", function(error, data) {
   if (error) throw error;
@@ -151,7 +137,6 @@ d3.csv("test.csv", function(error, data) {
   data.forEach(function(d) {
     d.normalized_distance = +d.normalized_distance;
   });
-
 	var nest = d3.nest()
 	  .key(function(d){
 	    return d.month;
@@ -160,14 +145,27 @@ d3.csv("test.csv", function(error, data) {
 	  .rollup(function(leaves){
 	 		return d3.sum(leaves, function(d) {return (d.normalized_distance)});
 		})
-
 	  .entries(data)
 	 binding_data(nest)
 });
 }
-
 function binding_data(nest)
   {
+    	 svg.selectAll("g").remove().exit()
+       
+      	  var a = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+	  x.domain(a)
+ // x.domain(nest.map(function(d) { return d.key; }));
+  y.domain([0, d3.max(nest, function(d) { return d.value; })+30]);
+  // append the rectangles for the bar chart
+  // add the x Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+  // add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+   
      svg.selectAll(".bar").remove().exit().data(nest)
     .enter().append("rect")
       .attr("class", "bar")
@@ -179,21 +177,13 @@ function binding_data(nest)
 			.on('mouseover', tip.show)
       .on('mouseout', tip.hide)
   }
-
-
    	fruitMenu.on('change', function(){
-
  		// Find which fruit was selected from the dropdown
  		var selectedFruit = d3.select(this)
             .select("select")
             .property("value")
-
         // Run update function with the selected fruit
 				draw(selectedFruit)
-
     });
-
-
-
 </script>
 </body>

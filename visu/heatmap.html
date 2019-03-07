@@ -33,7 +33,7 @@
     // All the following data is generated manually by clicking on this map.
     // map.on("click", function(e){ heat.addLatLng(e.latlng); });
   	var latlngs = [];
-	 d3.csv('test.csv', function (error, data) {
+	 d3.csv('data/test.csv', function (error, data) {
 		data.forEach(function(d) {
 				latlngs.push([ +d.latitude, +d.longitude])
   });

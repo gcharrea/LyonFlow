@@ -78,7 +78,7 @@
                       .innerRadius(radius - 80);
 				
 				var fruitMenu = d3.select("#dropdown")
-        d3.csv("test.csv", function(error, data) {
+        d3.csv("data/test.csv", function(error, data) {
             if (error) {
                 throw error;
             }
@@ -146,7 +146,7 @@
             });
 
 function draw(type){
-    d3.csv("test.csv", function(error, data) {
+    d3.csv("data/test.csv", function(error, data) {
       if (error) throw error;
       data = data.filter(function(d){return d.type == type;})
       // format the data

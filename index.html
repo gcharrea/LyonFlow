@@ -1,52 +1,71 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-  button {
-  	border: none;
-  	color: white;
-  	padding: 15px 32px;
-  	text-align: center;
-  	text-decoration: none;
-  	display: inline-block;
-  	font-size: 27px;
-    margin : 5px;
-	}
-  #buttons {
-    margin : 10% 25%;
-    width : 50%;
-    display : flex;
-    flex-wrap: wrap;
-    justify-content: center
-  }
-</style
-<html>
-	<body>
-		<div id="buttons">
-			<button
-			onclick="window.location.href='visu/bar_chart.html';"
-			style="background-color: #4CAF50;">
-				Bar chart
-			</button>
-			<button
-			onclick="window.location.href='visu/bar_chart_stacked.html';"
-			style="background-color: #008CBA;">
-				Bar chart stacked
-			</button>
-			<button
-			onclick="window.location.href='visu/pie_chart.html';"
-			style="background-color: #f44336;">
-				Pie chart
-			</button>
-			<button
-			onclick="window.location.href='visu/map.html';"
-			style="background-color: #555555;">
-				Map
-			</button>
-			<button
-			onclick="window.location.href='visu/nodes.html';"
-			style="background-color: #ffa500;">
-				Nodes
-			</button>
-		</div>
-	</body>
-</html>
+    html, body {
+        width : 100%;
+        height : 100%;
+    }
+
+    button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 27px;
+        margin : 5px;
+    }
+
+    #buttons {
+        display : flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin : auto;
+    }
+
+    #visu {
+        margin : auto;
+        width : 100%;
+        height : 100%;
+    }
+
+    </style
+    <html>
+        <body>
+            <div id="buttons">
+                <button
+                 onclick="document.getElementById('visu').data='visu/bar_chart.html';"
+                 style="background-color: #4CAF50;">
+                    Bar chart
+                </button>
+                <button
+                 onclick="document.getElementById('visu').data='visu/bar_chart_stacked.html';"
+                 style="background-color: #008CBA;">
+                    Bar chart stacked
+                </button>
+                <button
+                 onclick="document.getElementById('visu').data='visu/pie_chart.html';"
+                 style="background-color: #f44336;">
+                    Pie chart
+                </button>
+                <button
+                 onclick="document.getElementById('visu').data='visu/map.html';"
+                 style="background-color: #555555;">
+                    Map
+                </button>
+                <button
+                 onclick="document.getElementById('visu').data='visu/heatmap.html';"
+                 style="background-color: #ffa500;">
+                    Heatmap
+                </button>
+<!--                <button
+                 onclick="document.getElementById('visu').data='visu/nodes.html';"
+                 style="background-color: #551a8b;">
+                    Nodes
+                </button>-->
+            </div>
+            <object id="visu" type="text/html" data="">
+            </object>
+        </body>
+    </html>

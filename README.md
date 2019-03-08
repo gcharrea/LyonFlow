@@ -18,7 +18,6 @@ Le projet consiste en une page d'accueil où vous choisissez la visualisation qu
 C'est l'aspect que l'index présentera en entrant dans la page et qui reste dans l'en-tête de chaque visualisation pour passer de l'une à l'autre.
 
 ![Index](Index.PNG)
-
 Voici un exemple d'un des affichages correspondant à la représentation des emplacements à Lyon
 
 ![Example of Map](map.PNG)

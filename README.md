@@ -2,7 +2,7 @@
 
 >Date : Jan.2019 - Mar.2019 
 
->Auteurs : Guillaume CHATERRAUX, Hoang Khoi LE, Gonzalo CANET CERDAN
+>Auteurs : Guillaume CHARREAUX, Hoang Khoi LE, Gonzalo CANET CERDAN
 
 # Description du projet
 

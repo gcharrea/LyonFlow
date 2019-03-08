@@ -15,6 +15,7 @@ Le projet consiste en une page d'accueil où vous choisissez la visualisation qu
 * Map
 * Nodes
 
+![Index](img/index.PNG)
 
 Le projet est disponible [ici](https://gcharrea.github.io/LyonFlow/index) :
 

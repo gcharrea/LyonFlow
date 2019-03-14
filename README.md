@@ -15,17 +15,13 @@ Le projet consiste en une page composée des 5 visualisations suivantes :
 * **Bar chart stacked** - Mêmes distances groupées ou stacked
 * **Pie chart** - Proportion de la distance parcourue chaque jour de la semaine par chaque mode de transport
 * **Map** - Carte de Lyon avec l'emplacement d'une personne
-* **Heat map** - Carte avec les zones les plus fréquentées en couleur
+* **Heat map** - Carte avec les zones les plus fréquentées en couleur (Attention, cette visualisation met du temps à charger)
 
 Les graphiques sur la gauche de l'écran étudient les distances parcourues et permettent de relever des différences dans les habitudes de déplacement selon les jours de la semaine ou les périodes de l'année.
 Les cartes permettent notamment de mettre en évidence certains points de congestion durant les déplacements, mais aussi les lieux habituellement fréquentés. Il pourrait être intéressant d'analyser de telles cartes en comparaison avec des cartes de la pollution, de l'habitat etc ...
 
-C'est l'aspect que l'index présentera en entrant dans la page et qui reste dans l'en-tête de chaque visualisation pour passer de l'une à l'autre.
-
+Ci-dessous une prise de vue de l'affichage du projet présent à l'adresse fournie ci-dessus :
 ![Index](Index.PNG)
-Voici un exemple d'un des affichages correspondant à la représentation des emplacements à Lyon
-
-![Example of Map](map.PNG)
 
 # Données utilisées
 

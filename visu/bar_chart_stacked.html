@@ -19,7 +19,7 @@
     <label><input type="radio" name="mode" value="grouped" checked> Grouped</label>
     <label><input type="radio" name="mode" value="stacked"> Stacked</label>
   </form>
-  <svg width="960" height="500"></svg>
+  <svg width="900" height="400"></svg>
   <script>
 
   var svg = d3.select("svg"),
@@ -29,7 +29,7 @@
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var x0 = d3.scaleBand()
-  .rangeRound([0, width])
+  .rangeRound([0, width-150])
   .paddingInner(0.05);
 
   var x1 = d3.scaleBand()
